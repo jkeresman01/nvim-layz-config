@@ -1,0 +1,293 @@
+<div align="center">
+ 
+  <h1>Minimalistic neovim configuration (lazy.nvim)</h1>
+  <img src="https://raw.githubusercontent.com/neovim/neovim.github.io/master/logos/neovim-logo-300x87.png" alt="Neovim">
+
+  <h6>---------------- [ Just my Neovim config - Now with lazy.nvim! ] ----------------</i></h6>
+
+[![asciicast](https://asciinema.org/a/659647.svg)](https://asciinema.org/a/659647)
+  
+</div>
+
+## Table of Contents
+
+- [What's New](#whats-new)
+- [Plugin manager](#plugin-manager)
+- [Repository structure](#repo)
+- [Plugins](#plugins)
+   - [Functionality](#functionality)
+   - [Aesthetics](#aesthetics)
+- [Remaps](#remaps)
+   - [General](#general)
+   - [Split navigation](#split-navigation)
+   - [Set - Unset](#set-unset)
+   - [LSP](#lsp)
+   - [Fugative](#fugative)
+   - [Gitsigns](#gitsigns)
+   - [Telescope](#telescope)
+   - [Tmux-switch](#tmux-switch)
+   - [Harpoon](#harpoon)
+   - [Floating terminal](#floating-terminal)
+   - [Active files](#active-files)
+   - [Trouble](#trouble)
+- [Installation](#installation)
+
+## What's New <a name="whats-new"></a>
+
+This configuration has been completely rewritten to use **lazy.nvim** as the plugin manager instead of Packer. Key improvements:
+
+-  **Faster startup time** - lazy.nvim loads plugins on-demand
+-  **Better organization** - Each plugin category has its own file in `lua/jk/plugins/`
+-  **Lazy loading** - Plugins load only when needed (keybinds, filetypes, commands)
+-  **Easy maintenance** - Clear separation of concerns, easier to update plugins
+-  **Auto-install** - lazy.nvim bootstraps itself on first run
+
+## Plugin manager <a name="plugin-manager"></a>
+
+Now using **lazy.nvim** by folke.
+
+For more information about lazy.nvim:
+https://github.com/folke/lazy.nvim
+
+**No manual installation required!** lazy.nvim will bootstrap itself on first run.
+
+## Repository structure <a name="repo"></a>
+
+```shell
+nvim/
+├── .github
+│   └── workflows
+│       ├── format.yml
+│       └── spell-check.yml
+├── init.lua
+├── lua
+│   └── jk
+│       ├── colorscheme.lua
+│       ├── init.lua
+│       ├── lazy.lua
+│       ├── plugins
+│       │   ├── colorscheme.lua
+│       │   ├── diagnostics.lua
+│       │   ├── editor.lua
+│       │   ├── git.lua
+│       │   ├── java.lua
+│       │   ├── lsp.lua
+│       │   ├── navigation.lua
+│       │   ├── telescope.lua
+│       │   ├── treesitter.lua
+│       │   └── ui.lua
+│       ├── remaps.lua
+│       └── set.lua
+├── plugin
+│   └── floating_terminal.lua
+├── README.md
+├── .stylua.toml
+└── tmux_script
+    └── tmux_switch.sh
+```
+
+## Plugins <a name="plugins"></a>
+
+All plugins are now organized into modular files in `lua/jk/plugins/`:
+
+*  Telescope && harpoon for fuzzy finding and file navigation.
+*  TMUX switch for TMUX session management within Neovim
+*  Vim-fugative && gitsigns as git integration tools
+*  Mason (lsp, formatter, linter).
+*  Nvim-cmp as a completion engine.
+*  Active files - The thing from visual studio and jetbrains on ctrl+tab
+*  Treesitter as a syntax highlighter.
+*  Vim commentary for making commenting code a lot easier
+
+#### Functionality <a name="functionality"></a>  #####
+
+***
+* [Telescope](https://github.com/nvim-telescope/telescope.nvim)
+* [TMUX switch](https://github.com/jkeresman01/tmux-switch.nvim)
+* [Fugitive](https://github.com/tpope/vim-fugitive)
+* [Gitsigns](https://github.com/lewis6991/gitsigns.nvim)
+* [Harpoon](https://github.com/ThePrimeagen/harpoon)
+* [Mason](https://github.com/williamboman/mason.nvim)
+* [Nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
+* [Treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+* [Vim commentary](https://github.com/tpope/vim-commentary)
+* [Oil.nvim](https://github.com/stevearc/oil.nvim)
+
+#### Aesthetics <a name="aesthetics"></a>   #####
+***
+* [Aura (colorscheme)](https://github.com/techtuner/aura-neovim)
+* [dontuse (colorscheme)](https://github.com/jkeresman01/dontuse.nvim)
+* [Lualine](https://github.com/nvim-lualine/lualine.nvim)
+
+## Remaps <a name="remaps"></a>  ##
+***
+### General  <a name="general"></a> ###
+
+| Keybind       | Action                          |
+|---------------|---------------------------------|
+| `,`           | Leader key                      |
+
+***
+
+| Keybind       | Action                          |
+|---------------|---------------------------------|
+| `<leader>e`   | Open netrw directory listings   |
+| `<leader>b`   | Go to previous buffer           |
+| `<leader>v`   | Vertical split                  |
+| `<leader>s`   | Source file in current buffer   |
+
+
+### Split navigation <a name="split-navigation"></a> ###
+***
+| Keybind       | Action         |
+|---------------|----------------|
+| `<c-h>`       | Move to left   |
+| `<c-l>`       | Move to right  |
+| `<c-k>`       | Move up        |
+| `<c-j>`       | Move down      |
+
+### Set - Unset <a name="set-unset"></a> ###
+***
+
+| Keybind       | Action                          |
+|---------------|---------------------------------|
+| `<leader>ss`  | Enable spelling check           |
+| `<leader>sns` | Disable spelling check          |
+| `<leader>srn` | Enable relative numbers         |
+| `<leader>snrn`| Disable relative numbers        |
+| `<leader>sn`  | Enable line numbers             |
+| `<leader>snn` | Disable line numbers            |
+
+### LSP <a name="lsp"></a>  ###
+***
+
+| Keybind       | Action                                                                            |
+|---------------|-----------------------------------------------------------------------------------|
+| `<K>`         | Displays hover information about the symbol under the cursor in a floating window |
+| `<gd>`        | Jumps to the definition of the symbol under the cursor                            |
+| `<gr>`        | Show references                                                                   |
+| `<gD>`        | Declaration                                                                       |
+| `<gi>`        | Go to implementation                                                              |
+| `<F4>`        | Selects a code action available at the current cursor position                    |
+| `<C-n>`       | Goes to next available suggested completion option                                |
+| `<CR>`        | Confirms suggested completion option                                              |
+| `<leader>rn`  | Rename stuff under the cursor                                                     |
+
+### Fugative <a name="fugative"></a>  ###
+***
+
+| Keybind       | Action                                        |
+|---------------|-----------------------------------------------|
+| `<leader>g`   | Opens vim-fugitive in vertical split (:0Git)  |
+| `<leader>gc`  | Git commit                                    |
+| `<leader>gca` | Git commit --amend                            |
+| `<leader>gb`  | Git blame %                                   |
+| `<leader>gl`  | Git log %                                     |
+| `<leader>glo` | Git log --oneline %                           |
+| `<leader>gll` | Git log -1 HEAD %                             |
+| `<leader>gl5` | Git log -n 5                                  |
+| `<leader>glp` | Git log --pretty=format:"%h - %an, %ar : %s"  |
+| `<leader>glg` | Git log --graph                               |
+| `<leader>glgo`| Git log --graph --oneline                     |
+| `<leader>grs` | Git reset --soft HEAD~1                       |
+| `<leader>grh` | Git reset --hard HEAD~1                       |
+| `<leader>glr` | Git log --reverse --no-decorate               |
+| `-`           | Stage or unstage file under the cursor        |
+| `=`           | Show changes in file under the cursor         |
+
+### Gitsigns <a name="gitsigns"></a>  ###
+***
+
+| Keybind       | Action                             |
+|---------------|------------------------------------|
+| `<leader>ph`  | Preview hunk                       |
+| `<leader>sh`  | Stage hunk                         |
+| `<leader>hh`  | Reset hunk                         |
+| `<leader>ush` | Undo stage hunk                    |
+
+
+### Telescope <a name="telescope"></a>  ###
+***
+
+| Keybind       | Action          |
+|---------------|-----------------|
+| `<leader>ff`  | Find files      |
+| `<leader>fg`  | Live grep       |
+| `<leader>fb`  | Buffers         |
+| `<leader>fh`  | Help tags       |
+
+
+### TMUX switch <a name="tmux-switch"></a>  ###
+***
+
+| Keybind       | Action                                     |
+|---------------|--------------------------------------------|
+| `<C-f>`       | Open TMUX switch UI                        |
+| `<leader>cs`  | Create new TMUX session with given name    |
+| `<leader>rs`  | Rename current TMUX session                |
+
+
+### Trouble <a name="trouble"></a> ###
+***
+
+| Keybind       | Action                                         |
+|---------------|------------------------------------------------|
+| `<leader>tt`  | Trouble diagnostics toggle                     |
+| `<leader>t`   | Trouble diagnostics toggle (current buffer)    |
+
+
+### Harpoon <a name="harpoon"></a> ###
+***
+
+| Keybind       | Action                                                        |
+|---------------|---------------------------------------------------------------|
+| `<C-e>`       | Open Harpoon UI                                               |
+| `<leader>a`   | Add file in current buffer to Harpoon navigation list         |
+| `<C-q>`       | Go to first file in Harpoon navigation list                   |
+| `<C-w>`       | Go to second file in Harpoon navigation list                  |
+| `<C-t>`       | Go to third file in Harpoon navigation list                   |
+| `<C-z>`       | Run tmux switch script located under /tmux_scripts directory  |
+
+
+### Floating terminal <a name="floating-terminal"></a> ###
+***
+
+| Keybind       | Action                                                        |
+|---------------|---------------------------------------------------------------|
+| `<leader>ot`  | Toggle floating terminal                                      |
+
+
+### Active files <a name="active-files"></a> ###
+***
+
+| Keybind         | Action                                                        |
+|-----------------|---------------------------------------------------------------|
+| `<leader><Tab>` | Open Active files UI                                          |
+| `<CR>`          | Switch to selected file                                       |
+
+
+## Installation <a name="installation"></a>  ##
+
+If you already have a nvim configuration, you might want to do a backup first and then clone this one with:
+
+```bash
+git -C ~/.config/ clone https://github.com/jkeresman01/Minimalistic-Neovim-configuration.git nvim
+```
+
+**First run:** lazy.nvim will automatically bootstrap itself and install all plugins. Just wait for it to finish!
+
+### Layz
+
+- **No manual PackerSync needed** - Just save plugin files and lazy.nvim handles the rest
+- **Lazy loading by default** - Most plugins only load when you actually use them
+- **Better UI** - `:Lazy` shows a beautiful dashboard of your plugins
+- **Health checks** - `:checkhealth lazy` to verify everything is working
+
+### Updating Plugins
+
+Simply run:
+```vim
+:Lazy update
+```
+
+Or use `:Lazy` to open the UI and press `U` to update all plugins.
