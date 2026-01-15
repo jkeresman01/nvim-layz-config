@@ -55,3 +55,13 @@ vim.keymap.set("n", "<c-k>", "<cmd>wincmd k<CR>")
 vim.keymap.set("n", "<c-j>", "<cmd>wincmd j<CR>")
 vim.keymap.set("n", "<c-h>", "<cmd>wincmd h<CR>")
 vim.keymap.set("n", "<c-l>", "<cmd>wincmd l<CR>")
+
+----------------------------------------------------------------------------
+--
+-- Terminal
+-- This goes against everything that vim stands for but if you are under 
+-- influence of drugs I goes it works
+--
+----------------------------------------------------------------------------
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+vim.keymap.set("n", "<leader>t", "<cmd>vsplit | terminal<CR>")
