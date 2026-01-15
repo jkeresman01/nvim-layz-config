@@ -4,8 +4,6 @@
   <img src="https://raw.githubusercontent.com/neovim/neovim.github.io/master/logos/neovim-logo-300x87.png" alt="Neovim">
 
   <h6>---------------- [ Just my Neovim config - Now with lazy.nvim! ] ----------------</i></h6>
-
-[![asciicast](https://asciinema.org/a/659647.svg)](https://asciinema.org/a/659647)
   
 </div>
 
